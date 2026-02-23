@@ -1,0 +1,5 @@
+{
+  "name": "iOS Support Chat",
+  "description": "A sleek, iOS-inspired support agent chat interface powered by Gemini AI.",
+  "requestFramePermissions": []
+}

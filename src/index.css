@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  .markdown-body p {
+    margin-bottom: 0.5rem;
+  }
+  .markdown-body p:last-child {
+    margin-bottom: 0;
+  }
+  .markdown-body ul, .markdown-body ol {
+    margin-left: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  .markdown-body li {
+    margin-bottom: 0.25rem;
+  }
+}
