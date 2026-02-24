@@ -15,21 +15,32 @@ async function startServer() {
     res.json({ status: "ok" });
   });
 
-  if (process.env.NODE_ENV === "production") {
-    // Serve static files from the dist directory
-    app.use(express.static(path.join(__dirname, "dist")));
+  const isDev = process.env.NODE_ENV === "development";
+  console.log(`Starting server in ${isDev ? "development" : "production"} mode`);
 
-    // Handle SPA routing: serve index.html for all non-API routes
+  if (!isDev) {
+    const distPath = path.join(__dirname, "dist");
+    console.log(`Serving static files from: ${distPath}`);
+    app.use(express.static(distPath));
+
     app.get("*", (req, res) => {
-      res.sendFile(path.join(__dirname, "dist", "index.html"));
+      console.log(`Handling request for: ${req.url}`);
+      const indexPath = path.join(distPath, "index.html");
+      
+      import("fs").then(fs => {
+        if (fs.existsSync(indexPath)) {
+          res.sendFile(indexPath);
+        } else {
+          console.error(`Error: index.html not found at ${indexPath}`);
+          res.status(404).send("Application build not found. Please ensure 'npm run build' was executed.");
+        }
+      });
     });
   } else {
     // Vite middleware for development
     const vite = await createViteServer({
       server: { 
         middlewareMode: true,
-        host: '0.0.0.0',
-        port: 3000
       },
       appType: "spa",
     });

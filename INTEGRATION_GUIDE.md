@@ -40,5 +40,9 @@ The application currently calls the Gemini API directly from the frontend. If yo
    ```
 2. Update `src/services/geminiService.ts` to call your new endpoint instead of the direct Gemini SDK.
 
-## 5. Environment Variables
-Ensure the `GEMINI_API_KEY` is available. In a production .NET environment, you should move the AI logic to the server-side to protect your API key.
+## 6. Railway Deployment
+If you are deploying to Railway:
+1. Ensure your `package.json` has the `build` and `start` scripts configured (already done).
+2. Set the `GEMINI_API_KEY` environment variable in the Railway dashboard.
+3. Railway will automatically run `npm run build` and then `npm start`.
+4. The server is configured to serve the `dist` folder in production mode.
